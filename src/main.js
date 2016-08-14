@@ -41,7 +41,7 @@ Vue.http.interceptors.push((request, next) => {
 Vue.http.options.emulateJSON = true
 
 const router = new Router({
-  history: true // html5模式 去掉锚点
+  // history: true // html5模式 去掉锚点
 })
 
 /**

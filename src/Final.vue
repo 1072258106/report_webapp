@@ -13,12 +13,10 @@
       <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num:''"></cell>
     </group>
     <group :title="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' 的室友':''">
-      <div class="weui_media_box weui_media_text">
-        <p class="weui_media_desc">
-          <span v-if="roomMates.length === 0">你是第一个选择 {{userInfo.dorm_selection ? userInfo.dorm_selection.dorm.dorm_num : ''}} 宿舍的。过一会在来看看吧。</span>
-          <span v-for="mate in roomMates">{{mate.name}}</span>
-        </p>
-      </div>
+      <p class="weui_media_desc">
+        <span v-if="roomMates.length === 0">你是第一个选择 {{userInfo.dorm_selection ? userInfo.dorm_selection.dorm.dorm_num : ''}} 宿舍的。过一会在来看看吧。</span>
+        <span v-for="mate in roomMates">{{mate.name}}</span>
+      </p>
     </group>
     <div class="exit_btn"><x-button @click="logOut()" type="warn">退出登陆</x-button></div>
     <t-footer></t-footer>

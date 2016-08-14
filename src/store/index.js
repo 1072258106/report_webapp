@@ -115,7 +115,12 @@ store.getRoomMates = (instance) => {
  */
 
 store.studentIdIsExit = (studentId, instance) => {
-  return store.myHttp(instance, 'get', 'exists_student_num/' + studentId)
+  instance.$root.showLoading('请稍候')
+  return store.myHttp(instance, 'get', 'exists_student_num/' + studentId, {}, res => {
+    instance.$root.loading.show = false
+  }, res => {
+    instance.$root.loading.show = false
+  })
 }
 
 /**

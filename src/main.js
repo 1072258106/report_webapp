@@ -40,7 +40,9 @@ Vue.http.interceptors.push((request, next) => {
 // 不以json形式请求
 Vue.http.options.emulateJSON = true
 
-const router = new Router()
+const router = new Router({
+  history: true // html5模式 去掉锚点
+})
 
 /**
  * 引入路由所需页面组件

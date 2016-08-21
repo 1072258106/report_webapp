@@ -9,12 +9,13 @@
     <div class="identity_input_container">
       <header>
         <h3>输入身份证后4位</h3>
+        <span v-if="identityError.show" class="error">{{identityError.msg}}</span>
         <div @click="showIdentityInput = false" class="close_btn">x</div>
       </header>
       <div class="res_container">
         <flexbox class="res">
-          <template v-for="n in 4">
-            <flexbox-item><div class="item">{{IdentityNums[n]}}</div></flexbox-item>
+          <template v-for="n in identityDigit">
+            <flexbox-item><div class="item">{{identityNums[n]}}</div></flexbox-item>
           </template>
         </flexbox>
       </div>
@@ -23,7 +24,7 @@
           <li>1</li><li>2</li><li>3</li>
           <li>4</li><li>5</li><li>6</li>
           <li>7</li><li>8</li><li>9</li>
-          <li>x</li><li>0</li><li class="back_space" @click="IdentityNums.pop()"><i class="iconfont icon-backspace"></i></li>
+          <li id="num_x" class="disabled">x</li><li>0</li><li class="back_space" @click="delIdentity()"><i class="iconfont icon-backspace"></i></li>
         </ul>
       </div>
     </div>
@@ -50,9 +51,15 @@ export default {
         show: false,
         msg: '加载中'
       },
-      IdentityNums: [],
+      identityError: {
+        show: false,
+        msg: '加载中'
+      },
+      identityNums: [],
       // 学号
-      sutdentId: null
+      sutdentId: null,
+      // 输入身份证位数
+      identityDigit: 4
     }
   },
   methods: {
@@ -64,18 +71,35 @@ export default {
       this.loading.msg = msg
       this.loading.show = true
     },
+    showIdentityError (msg) {
+      this.identityError.msg = msg
+      this.identityError.show = true
+      setTimeout(() => {
+        this.identityError.show = false
+      }, 3000)
+    },
+    delIdentity () {
+      this.identityNums.pop()
+      if (this.identityNums.length < this.identityDigit - 1) {
+        this.$el.querySelector('#num_x').className = 'disabled'
+      }
+    },
     inputIdentity (number) {
-      if (this.IdentityNums.length < 4) {
-        this.IdentityNums.push(number)
-        if (this.IdentityNums.length === 4) {
-          store.login(this.sutdentId, this.IdentityNums.join(''), this).then(res => {
+      if (this.identityNums.length < this.identityDigit) {
+        this.identityNums.push(number)
+        if (this.identityNums.length === this.identityDigit - 1) {
+          this.$el.querySelector('#num_x').className = ''
+        }
+        if (this.identityNums.length === this.identityDigit) {
+          store.login(this.sutdentId, this.identityNums.join(''), this).then(res => {
             // 登陆成功
             this.showIdentityInput = false
             this.$route.router.go({name: 'checkinfo'})
           }, res => {
             // 登陆失败
-            this.showIdentityInput = false
-            this.IdentityNums = []
+            this.showIdentityError(res.data.message)
+            this.identityNums = []
+            this.$el.querySelector('#num_x').className = 'disabled'
           })
         }
       }
@@ -87,6 +111,10 @@ export default {
     for (let liIndex in lis) {
       if (liIndex !== 'length') {
         lis[liIndex].onclick = function () {
+          console.log(this.className)
+          if (this.className === 'disabled') {
+            return false
+          }
           self.inputIdentity(this.innerHTML)
         }
       }
@@ -197,6 +225,14 @@ body{
       text-align: center;
       margin: .7rem 0;
     }
+    >.error{
+      color: #f30;
+      text-align: center;
+      display: block;
+      font-size: .65rem;
+      position: relative;
+      top:-.5rem;
+    }
     >.close_btn{
       position: absolute;
       left: .7rem;
@@ -241,7 +277,11 @@ body{
         border-bottom: 1px #eee solid;
         line-height: 2.3;
         font-size: 1.2rem;
-        &:active{
+        &.disabled{
+          background-color: #f1f1f1;
+          color: #aaa;
+        }
+        &:active:not(.disabled){
           background-color: #f1f1f1;
         }
         &.back_space{

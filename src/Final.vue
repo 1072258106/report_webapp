@@ -8,7 +8,6 @@
       <cell title="性别" :value="userInfo.gender_title"></cell>
       <cell title="联系电话" :value="userInfo.tel"></cell>
       <cell title="身份证" :value="userInfo.id_card"></cell>
-      <cell title="毕业中学" :value="userInfo.graduate_school"></cell>
       <cell title="报道时间" :value="userInfo.report_time"></cell>
       <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num:''"></cell>
     </group>

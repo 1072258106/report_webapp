@@ -1,6 +1,6 @@
 <template>
   <div class="page_content">
-    <div class="logo">
+    <div class="logo" v-show="!$root.showIdentityInput">
       <div class="logo_img"></div>
       <p>(。・`ω´・) E8全体小伙伴欢迎新同学到来</p>
     </div>

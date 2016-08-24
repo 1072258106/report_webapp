@@ -111,7 +111,6 @@ export default {
     for (let liIndex in lis) {
       if (liIndex !== 'length') {
         lis[liIndex].onclick = function () {
-          console.log(this.className)
           if (this.className === 'disabled') {
             return false
           }

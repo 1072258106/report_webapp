@@ -131,7 +131,11 @@ export default {
                     this.$root.sutdentId = this.sutdentId
                     this.$el.querySelector('#student_id').blur()
                   }, res => {
-                    this.$root.showMessage('该学号不存在')
+                    if (res.status === 0) {
+                      this.$root.showMessage('网络出现异常')
+                    } else {
+                      this.$root.showMessage('该学号不存在')
+                    }
                     this.stuClass = ''
                     this.inputErr = true
                   })

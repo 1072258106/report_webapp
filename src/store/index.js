@@ -13,7 +13,7 @@ export default store
  * @param success 成功回调
  * @param failed 失败回调
  */
-store.myHttp = (instance, method, url, params, success, failed, noShowMsg) => {
+store.myHttp = (instance, method, url, params, success, failed, noShowMsg = false) => {
   return new Promise(function (resolve, reject) {
     instance.$http[method](url, params).then(res => {
       if (success !== undefined) {
@@ -59,7 +59,7 @@ store.login = (studentNum, password, instance) => {
  * 获取当前用户信息
  */
 store.getMe = (instance, noShowMsg) => {
-  return store.myHttp(instance, 'get', 'me', undefined, undefined, undefined, noShowMsg)
+  return store.myHttp(instance, 'get', 'me', undefined, undefined, undefined, true)
 }
 
 /**

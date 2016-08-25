@@ -53,7 +53,7 @@ store.login = (studentNum, password, instance) => {
     instance.$root.loading.show = false
   }, res => {
     instance.$root.loading.show = false
-  })
+  }, true)
 }
 /**
  * 获取当前用户信息

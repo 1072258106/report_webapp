@@ -91,14 +91,16 @@ export default {
           this.$el.querySelector('#num_x').className = ''
         }
         if (this.identityNums.length === this.identityDigit) {
-          store.login(this.sutdentId, this.identityNums.join(''), this).then(res => {
+          // 清空身份证输入框
+          let pwd = this.identityNums.join('')
+          this.identityNums = []
+          store.login(this.sutdentId, pwd, this).then(res => {
             // 登陆成功
             this.showIdentityInput = false
             this.$route.router.go({name: 'checkinfo'})
           }, res => {
             // 登陆失败
             this.showIdentityError(res.data.message)
-            this.identityNums = []
             this.$el.querySelector('#num_x').className = 'disabled'
           })
         }

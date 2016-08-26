@@ -1,5 +1,5 @@
 <template>
-<x-header :right-options="{showMore: true}"  @on-click-more="showMenus = true" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
+<x-header :right-options="{showMore: showOption}"  @on-click-more="showMenus = true" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
   <span :style="{'color': textcolor}">{{title}}</span>
 </x-header>
 <actionsheet :menus="menus" @on-click-menu-menu2="showSuccess = true" :show.sync="showMenus" show-cancel></actionsheet>
@@ -36,6 +36,11 @@
         },
         showMenus: false,
         showSuccess: false
+      }
+    },
+    computed: {
+      showOption () {
+        return window.localStorage.uname !== undefined
       }
     }
   }

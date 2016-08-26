@@ -1,16 +1,14 @@
 <template>
-<x-header :right-options="{showMore: showOption}"  @on-click-more="showMenus = true" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
+<x-header :right-options="{showMore: showOption}"  @on-click-more="$root.option.showMenus = true" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
   <span :style="{'color': textcolor}">{{title}}</span>
 </x-header>
-<actionsheet :menus="menus" @on-click-menu-menu2="showSuccess = true" :show.sync="showMenus" show-cancel></actionsheet>
-<toast :show.sync="showSuccess">退出登录成功!</toast>
 </template>
 
 <script>
-  import { XHeader, Actionsheet, Toast } from 'vux/src/components/'
+  import { XHeader, Toast } from 'vux/src/components/'
   export default {
     components: {
-      XHeader, Actionsheet, Toast
+      XHeader, Toast
     },
     props: {
       // 导航栏颜色
@@ -30,12 +28,6 @@
     },
     data () {
       return {
-        menus: {
-          menu1: window.localStorage.uname,
-          menu2: '<span style="color:red">退出登录</span>'
-        },
-        showMenus: false,
-        showSuccess: false
       }
     },
     computed: {

@@ -17,7 +17,7 @@
         <span v-for="mate in roomMates">{{mate.student_name}}</span>
       </p>
     </group>
-    <div class="exit_btn"><x-button @click="logOut()" type="warn">退出登陆</x-button></div>
+    <div class="exit_btn"><x-button @click="$root.logOut()" type="warn">退出登陆</x-button></div>
     <t-footer></t-footer>
   </div>
 </template>
@@ -44,13 +44,6 @@
       return {
         userInfo: {},
         roomMates: []
-      }
-    },
-    methods: {
-      logOut () {
-        store.logOut(this).then(res => {
-          this.$route.router.replace({name: 'login'})
-        })
       }
     }
   }

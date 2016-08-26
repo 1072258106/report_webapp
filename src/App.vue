@@ -56,8 +56,8 @@ export default {
         msg: '加载中'
       },
       identityNums: [],
-      // 学号
-      sutdentId: null,
+      // 姓名
+      studentName: null,
       // 输入身份证位数
       identityDigit: 4
     }
@@ -94,7 +94,7 @@ export default {
           // 清空身份证输入框
           let pwd = this.identityNums.join('')
           this.identityNums = []
-          store.login(this.sutdentId, pwd, this).then(res => {
+          store.login(this.studentName, pwd, this).then(res => {
             // 登陆成功
             this.showIdentityInput = false
             this.$route.router.go({name: 'checkinfo'})

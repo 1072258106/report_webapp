@@ -43,10 +43,10 @@ store.myHttp = (instance, method, url, params, success, failed, noShowMsg = fals
 /**
  * 登陆
  */
-store.login = (studentNum, password, instance) => {
+store.login = (studentName, password, instance) => {
   instance.$root.showLoading('登陆中')
   return store.myHttp(instance, 'post', 'login', {
-    student_num: studentNum,
+    student_name: studentName,
     password: password,
     remember: 'true'
   }, res => {
@@ -129,4 +129,10 @@ store.studentIdIsExit = (studentId, instance) => {
 store.logOut = (instance) => {
   return store.myHttp(instance, 'get', 'logout')
 }
-
+/**
+ * 搜索学生
+ * @param  {String} keyWord  关键字
+ */
+store.searchStudents = (instance, keyWord) => {
+  return store.myHttp(instance, 'get', 'search_students/' + keyWord)
+}

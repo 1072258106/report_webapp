@@ -8,9 +8,7 @@
       <input id="student_name" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
       <div class="tip">
         <ul>
-          <li>taowei</li>
-          <li>taowei</li>
-          <li>taowei</li>
+          <li @click="selStudentName(item)" v-for="item in matchList.list">{{item}}</li>
         </ul>
       </div>
     </div>
@@ -45,7 +43,9 @@ export default {
       // 输入框是否显示logo
       inputErr: false,
       // 是否显示底部
-      showFooter: true
+      showFooter: true,
+      // 匹配列表
+      matchList: {}
     }
   },
   ready () {
@@ -63,13 +63,21 @@ export default {
   },
   watch: {
     'studentName' () {
-      if (this.studentName === 'tw') {
-        setTimeout(() => {
-          this.$root.showIdentityInput = true
-          this.$root.IdentityNums = []
-        }, 500)
-        this.$el.querySelector('#student_name').blur()
+      if (this.studentName.length > 0) {
+        store.searchStudents(this, this.studentName).then(res => {
+          this.matchList = res
+        })
       }
+    }
+  },
+  methods: {
+    selStudentName (studentName) {
+      this.$root.studentName = studentName
+      setTimeout(() => {
+        this.$root.showIdentityInput = true
+        this.$root.IdentityNums = []
+      }, 500)
+      this.$el.querySelector('#student_name').blur()
     }
   }
 }

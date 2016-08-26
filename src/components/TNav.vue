@@ -34,6 +34,9 @@
       showOption () {
         return window.localStorage.uname !== undefined
       }
+    },
+    ready () {
+      this.$root.$el.querySelector('.weui_input').style.paddingLeft = '55px'
     }
   }
 </script>

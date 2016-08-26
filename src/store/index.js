@@ -67,9 +67,13 @@ store.getMe = (instance, noShowMsg) => {
 /**
  * 确认报道
  */
-store.report = (instance) => {
+store.report = (height, weight, remarks = '', instance) => {
   instance.$root.showLoading('加载中')
-  return store.myHttp(instance, 'post', 'report', {}, res => {
+  return store.myHttp(instance, 'post', 'report', {
+    height: height,
+    weight: weight,
+    remarks: remarks
+  }, res => {
     instance.$root.loading.show = false
   }, res => {
     instance.$root.loading.show = false

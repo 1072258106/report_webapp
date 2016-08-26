@@ -60,7 +60,6 @@ store.login = (studentName, password, instance) => {
  */
 store.getMe = (instance, noShowMsg) => {
   return store.myHttp(instance, 'get', 'me', undefined, res => {
-    console.log(res)
     window.localStorage.uname = res.data.student.student_name
   }, undefined, true)
 }
@@ -68,7 +67,6 @@ store.getMe = (instance, noShowMsg) => {
 /**
  * 确认报道
  */
-
 store.report = (instance) => {
   instance.$root.showLoading('加载中')
   return store.myHttp(instance, 'post', 'report', {}, res => {

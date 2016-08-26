@@ -29,16 +29,17 @@
       </div>
     </div>
   </popup>
+  <actionsheet :menus="option.menus" @on-click-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel></actionsheet>
 </template>
 
 <script>
-import { Popup, Flexbox, FlexboxItem, Toast, Loading } from 'vux/src/components'
+import { Popup, Flexbox, FlexboxItem, Toast, Loading, Actionsheet } from 'vux/src/components'
 import TFooter from './components/TFooter'
 import store from './store'
 export default {
   replace: false,
   components: {
-    TFooter, Popup, Flexbox, FlexboxItem, Toast, Loading
+    TFooter, Popup, Flexbox, FlexboxItem, Toast, Loading, Actionsheet
   },
   data () {
     return {
@@ -59,7 +60,15 @@ export default {
       // 姓名
       studentName: null,
       // 输入身份证位数
-      identityDigit: 4
+      identityDigit: 4,
+      // 顶部菜单
+      option: {
+        menus: {
+          uname: window.localStorage.uname,
+          logout: '<span style="color:red">退出登录</span>'
+        },
+        showMenus: false
+      }
     }
   },
   methods: {
@@ -105,6 +114,11 @@ export default {
           })
         }
       }
+    },
+    logOut () {
+      store.logOut(this).then(res => {
+        this.$route.router.replace({name: 'login'})
+      })
     }
   },
   ready () {

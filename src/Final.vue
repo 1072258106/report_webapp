@@ -4,7 +4,7 @@
     <p class="info">恭喜你完成报道所有流程，下面是你的基本信息。</p>
     <group>
       <cell title="学号" :value="userInfo.student_num"></cell>
-      <cell title="姓名" :value="userInfo.name"></cell>
+      <cell title="姓名" :value="userInfo.student_name"></cell>
       <cell title="性别" :value="userInfo.gender_title"></cell>
       <cell title="联系电话" :value="userInfo.tel"></cell>
       <cell title="身份证" :value="userInfo.id_card"></cell>
@@ -14,7 +14,7 @@
     <group :title="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' 的室友':''">
       <p class="weui_media_desc">
         <span v-if="roomMates.length === 0">你是第一个选择 {{userInfo.dorm_selection ? userInfo.dorm_selection.dorm.dorm_num : ''}} 宿舍的。过一会在来看看吧。</span>
-        <span v-for="mate in roomMates">{{mate.name}}</span>
+        <span v-for="mate in roomMates">{{mate.student_name}}</span>
       </p>
     </group>
     <div class="exit_btn"><x-button @click="logOut()" type="warn">退出登陆</x-button></div>

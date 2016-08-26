@@ -59,7 +59,10 @@ store.login = (studentName, password, instance) => {
  * 获取当前用户信息
  */
 store.getMe = (instance, noShowMsg) => {
-  return store.myHttp(instance, 'get', 'me', undefined, undefined, undefined, true)
+  return store.myHttp(instance, 'get', 'me', undefined, res => {
+    console.log(res)
+    window.localStorage.uname = res.data.student.student_name
+  }, undefined, true)
 }
 
 /**

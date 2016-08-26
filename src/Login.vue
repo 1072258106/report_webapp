@@ -5,10 +5,13 @@
       <p>(。・`ω´・) E8全体小伙伴欢迎新同学到来</p>
     </div>
     <div class="input_box">
-      <input id="student_name" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
+      <div class="input_container">
+        <input id="student_name" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
+        <button @click="login" class="login_button">登陆</button>
+      </div>
       <div class="tip">
         <ul>
-          <li @click="selStudentName(item)" v-for="item in matchList.list">{{item}}</li>
+          <li @click="selStudentName(item)" v-for="item in matchList">{{item}}</li>
         </ul>
       </div>
     </div>
@@ -45,39 +48,59 @@ export default {
       // 是否显示底部
       showFooter: true,
       // 匹配列表
-      matchList: {}
+      matchList: [],
+      isSel: false
     }
   },
   ready () {
     let studentIdInput = this.$el.querySelector('#student_name')
     studentIdInput.onfocus = () => {
+      this.isSel = false
       this.showLogo = false
       this.showFooter = false
     }
     studentIdInput.onblur = () => {
-      this.showLogo = true
       setTimeout(() => {
         this.showFooter = true
+        this.showLogo = true
       }, 500)
     }
   },
   watch: {
     'studentName' () {
-      if (this.studentName.length > 0) {
-        store.searchStudents(this, this.studentName).then(res => {
-          this.matchList = res
-        })
+      if (!this.isSel) {
+        if (this.studentName.length > 0) {
+          store.searchStudents(this, this.studentName).then(res => {
+            this.matchList = res
+          })
+        } else {
+          this.matchList = []
+        }
       }
     }
   },
   methods: {
+    // 选择姓名
     selStudentName (studentName) {
-      this.$root.studentName = studentName
+      this.isSel = true
+      this.studentName = studentName
+      this.matchList = []
+    },
+    login () {
+      this.$root.studentName = this.studentName
       setTimeout(() => {
         this.$root.showIdentityInput = true
         this.$root.IdentityNums = []
       }, 500)
       this.$el.querySelector('#student_name').blur()
+    },
+    // 替换匹配列表文字 add <em> tag
+    replaceListTest (listItem) {
+      if (this.matchList.search.length > 0) {
+        return listItem.replace(this.matchList.search, '<span sytle="font-weight: normal;">' + this.matchList.search + '</span>')
+      } else {
+        return listItem
+      }
     }
   }
 }
@@ -115,7 +138,6 @@ export default {
       margin-top: 0;
       >ul{
         font-size: 16px;
-        font-weight: bold;
         line-height: 1.5rem;
         text-align: left;
         color: #333;
@@ -128,23 +150,42 @@ export default {
         }
       }
     }
-    >.student_input{
-      background-color: #fff;
-      height: 2.2rem;
-      width: 100%;
-      border-radius: 0.1rem;
-      padding: 0 0.5rem;
-      border: 1px solid #eee;
-      outline: 0;
-      transition: border-color .3s, box-shadow .3s;
-      font-size: .75rem;
-      color: #333;
-      &:focus{
-        border: 1px solid #82c3fe;
-        box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+    >.input_container{
+      padding-right: 3.3rem;
+      position: relative;
+      >.student_input{
+        background-color: #fff;
+        height: 2.2rem;
+        width: 100%;
+        border-radius: 0.1rem 0 0 0.1rem;
+        padding: 0 0.5rem;
+        border: 1px solid #eee;
+        outline: 0;
+        transition: border-color .3s, box-shadow .3s;
+        font-size: .75rem;
+        color: #333;
+        &:focus{
+          border: 1px solid #82c3fe;
+          box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+        }
+        &.error{
+          border-color: #f30;
+        }
       }
-      &.error{
-        border-color: #f30;
+      .login_button{
+        position: absolute;
+        right: 0px;
+        top: 0;
+        height: 100%;
+        width: 3.3rem;
+        background: #38f;
+        color: #fff;
+        font-size: .75rem;
+        border: 1px #eee solid;
+        white-space: nowrap;
+        letter-spacing: -1px;
+        box-sizing: inherit;
+        border-left: none;
       }
     }
   }

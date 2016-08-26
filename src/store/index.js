@@ -129,3 +129,4 @@ store.studentIdIsExit = (studentId, instance) => {
 store.logOut = (instance) => {
   return store.myHttp(instance, 'get', 'logout')
 }
+

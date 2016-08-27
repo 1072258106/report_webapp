@@ -10,7 +10,7 @@
       <cell title="身份证" :value="userInfo.id_card"></cell>
       <cell title="毕业中学" :value="userInfo.graduate_school"></cell>
     </group>
-    <group title="输入身高体重用于订做校服(校服普遍偏大)">
+    <group title="输入身高体重用于订做校服(校服可能普遍偏大)">
       <selector :value.sync="height" placeholder="请选择身高" title="身高(cm)" :options="heightList"></selector>
       <x-input :value.sync="weight" title="体重(kg)" name="userweight" placeholder="请输入体重"></x-input>
     </group>

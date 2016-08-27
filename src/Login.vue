@@ -162,14 +162,15 @@ export default {
       }
     }
     >.input_container{
-      padding-right: 3.3rem;
       position: relative;
       >.student_input{
+        outline: none;
         background-color: #fff;
         height: 2.2rem;
         width: 100%;
         border-radius: 0.1rem 0 0 0.1rem;
         padding: 0 0.5rem;
+        padding-right: 3.8rem;
         border: 1px solid #eee;
         outline: 0;
         transition: border-color .3s, box-shadow .3s;
@@ -185,14 +186,13 @@ export default {
       }
       .login_button{
         position: absolute;
-        right: 0px;
-        top: 0;
-        height: 100%;
+        right: 2px;
+        top: 2px;
+        height: 2.02rem;
         width: 3.3rem;
-        background: #38f;
+        background: #82c3fe;
         color: #fff;
         font-size: .75rem;
-        border: 1px #eee solid;
         white-space: nowrap;
         letter-spacing: -1px;
         box-sizing: inherit;

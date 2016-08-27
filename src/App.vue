@@ -80,10 +80,9 @@ export default {
       studentName: null,
       // 输入身份证位数
       identityDigit: 4,
-      // 顶部菜单
       option: {
         menus: {
-          uname: window.localStorage.uname,
+          uname: '',
           logout: '<span style="color:red">退出登录</span>'
         },
         showMenus: false

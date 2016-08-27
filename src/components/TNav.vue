@@ -1,5 +1,5 @@
 <template>
-<x-header :right-options="{showMore: showOption}"  @on-click-more="$root.option.showMenus = true" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
+<x-header :right-options="{showMore: true}"  @on-click-more="$root.option.showMenus = true" :left-options="{showBack: showBack, backText: ''}" :style="{'background-color':bgcolor}">
   <span :style="{'color': textcolor}">{{title}}</span>
 </x-header>
 </template>
@@ -28,11 +28,6 @@
     },
     data () {
       return {
-      }
-    },
-    computed: {
-      showOption () {
-        return window.localStorage.uname !== undefined
       }
     }
   }

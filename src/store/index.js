@@ -60,7 +60,7 @@ store.login = (studentName, password, instance) => {
  */
 store.getMe = (instance, noShowMsg) => {
   return store.myHttp(instance, 'get', 'me', undefined, res => {
-    window.localStorage.uname = res.data.student.student_name
+    instance.$root.option.menus.uname = res.data.student.student_name
   }, undefined, true)
 }
 
@@ -151,6 +151,7 @@ store.studentNameIsExit = (studentName, instance) => {
  *  退出登陆
  */
 store.logOut = (instance) => {
+  window.localStorage.removeItem('uname')
   return store.myHttp(instance, 'get', 'logout')
 }
 /**

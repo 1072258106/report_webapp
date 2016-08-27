@@ -10,7 +10,7 @@
       <cell title="联系电话" :value="userInfo.tel"></cell>
       <cell title="身份证" :value="userInfo.id_card"></cell>
       <cell title="报道时间" :value="userInfo.report_time"></cell>
-      <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num:''"></cell>
+      <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' (' + userInfo.dorm_selection.bed_num + '号床)':''"></cell>
     </group>
     <group :title="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' 的室友':''">
       <p class="weui_media_desc">

@@ -38,7 +38,9 @@ export default {
       showFooter: true,
       // 匹配列表
       matchList: [],
-      isSel: false
+      isSel: false,
+      // 输入框是否是焦点
+      isFocus: false
     }
   },
   ready () {
@@ -56,11 +58,13 @@ export default {
       this.isSel = false
       this.showLogo = false
       this.showFooter = false
+      this.isFocus = true
     }
     studentIdInput.onblur = () => {
       setTimeout(() => {
         this.showFooter = true
         this.showLogo = true
+        this.isFocus = false
       }, 500)
     }
   },
@@ -85,12 +89,19 @@ export default {
       this.matchList = []
     },
     login () {
-      this.$root.studentName = this.studentName
-      setTimeout(() => {
-        this.$root.showIdentityInput = true
-        this.$root.IdentityNums = []
-      }, 500)
-      this.$el.querySelector('#student_name').blur()
+      store.studentNameIsExit(this.studentName, this).then(res => {
+        this.$root.studentName = this.studentName
+        if (this.isFocus) {
+          setTimeout(() => {
+            this.$root.showIdentityInput = true
+            this.$root.IdentityNums = []
+          }, 500)
+        } else {
+          this.$root.showIdentityInput = true
+          this.$root.IdentityNums = []
+        }
+        this.$el.querySelector('#student_name').blur()
+      })
     },
     // 替换匹配列表文字 add <em> tag
     replaceListTest (listItem) {

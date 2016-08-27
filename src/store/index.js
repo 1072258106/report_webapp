@@ -125,7 +125,7 @@ store.getRoomMates = (instance) => {
  *  @param studentId 学号
  *  exists_student_num
  */
-
+/*
 store.studentIdIsExit = (studentId, instance) => {
   instance.$root.showLoading('请稍候')
   return store.myHttp(instance, 'get', 'exists_student_num/' + studentId, {}, res => {
@@ -134,7 +134,19 @@ store.studentIdIsExit = (studentId, instance) => {
     instance.$root.loading.show = false
   })
 }
+*/
 
+/**
+ * 判断姓名是否存在
+ */
+store.studentNameIsExit = (studentName, instance) => {
+  instance.$root.showLoading('请稍候')
+  return store.myHttp(instance, 'get', 'exists_student_name/' + studentName, {}, res => {
+    instance.$root.loading.show = false
+  }, res => {
+    instance.$root.loading.show = false
+  })
+}
 /**
  *  退出登陆
  */

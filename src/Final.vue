@@ -10,7 +10,15 @@
       <cell title="联系电话" :value="userInfo.tel"></cell>
       <cell title="身份证" :value="userInfo.id_card"></cell>
       <cell title="报道时间" :value="userInfo.report_time"></cell>
+    </group>
+    <group :title="'以下信息如果需要修改 可到' + $root.modifyInfoAddr + '处'">
       <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' (' + userInfo.dorm_selection.bed_num + '号床)':''"></cell>
+      <cell title="身高" :value="userInfo.student_info ? userInfo.student_info.height : ''"></cell>
+      <cell title="体重" :value="userInfo.student_info ? userInfo.student_info.weight : ''"></cell>
+      <div class="remarks weui_cell" v-if="userInfo.student_info != undefined && userInfo.student_info.remarks != undefined">
+        <header>备注</header>
+        <p>{{userInfo.student_info.remarks}}</p>
+      </div>
     </group>
     <group :title="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' 的室友':''">
       <p class="weui_media_desc">
@@ -59,6 +67,19 @@
     background-color: #dff0d8;
     font-size: .65rem;
     text-align: center;
+  }
+  .remarks{
+    display: block;
+    header{
+      width: 100%;
+    }
+    p{
+      color: #666;
+      font-size: .7rem;
+      margin-top: .3rem;
+      width: 100%;
+      word-break: break-word;
+    }
   }
   .weui_media_desc{
     overflow: hidden;

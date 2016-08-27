@@ -48,6 +48,8 @@ export default {
   },
   data () {
     return {
+      // 修改信息的地点
+      modifyInfoAddr: 'xxx',
       showIdentityInput: false,
       message: {
         show: false,

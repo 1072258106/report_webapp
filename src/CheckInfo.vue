@@ -54,7 +54,7 @@
         } else {
           this.submitBtn.title = '提交中'
           this.submitBtn.disabled = true
-          this.$root.showConfirm('你输入的体重身高分别是' + this.weight + 'kg,' + this.height + 'cm 确认报道?', () => {
+          this.$root.showConfirm('你输入的体重身高分别是' + this.weight + 'kg,' + this.height + 'cm 可在' + this.$root.modifyInfoAddr + '修改 确认报道?', () => {
             store.report(this.height, this.weight, this.remarks, this).then(res => {
               this.$route.router.go({name: 'reportok'})
             }, res => {

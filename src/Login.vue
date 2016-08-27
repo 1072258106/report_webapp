@@ -2,6 +2,7 @@
   <div class="page_content">
     <div class="logo" v-show="showLogo && !$root.showIdentityInput">
       <div class="logo_img"></div>
+      <p>计算机学院新生自助报道</p>
       <p>(。・`ω´・) E8全体小伙伴欢迎新同学到来</p>
     </div>
     <div class="input_box">
@@ -61,9 +62,9 @@ export default {
       this.isFocus = true
     }
     studentIdInput.onblur = () => {
+      this.showLogo = true
       setTimeout(() => {
         this.showFooter = true
-        this.showLogo = true
         this.isFocus = false
       }, 500)
     }
@@ -126,11 +127,12 @@ export default {
       background: url('./assets/logo.png') no-repeat 50% 50%;
       background-size: 100% 100%;
       margin: 0 auto;
+      margin-bottom: .7rem;
     }
     >p{
       font-size: .6rem;
       text-align: center;
-      margin-top: .6rem;
+      margin-top: .4rem;
       color: #aaa;
     }
   }

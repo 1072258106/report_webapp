@@ -28,7 +28,7 @@
           <template v-else>
             <li class="waves-light waves-effect">
               <i class="iconfont icon-chuang youren"></i>
-              <span>已被占领 ({{isOccupied($index + 1).student.name | cutString 4}})</span>
+              <span>已被占领 ({{isOccupied($index + 1).student.student_name | cutString 4}})</span>
               <div class="bed_num">{{$index+1}}号床</div>
               <p class="occupyTime">{{isOccupied($index + 1).created_at | fromNow}}</p>
             </li>
@@ -41,26 +41,22 @@
     <div class="primary">
       <x-button :class="[submit_btn, {disabled: selectedIndex == null }]" :text="submitBtn.title" :disabled="submitBtn.disabled" @click="processButton()" type="primary"></x-button>
     </div>
-    <confirm confirm-text="我已下定决心!" cancel-text="再想想" :show.sync="ensureSub" title="提示" @on-cancel="onCancel()" @on-confirm="onConfirm()">
-      <p style="text-align:center;">你真的真的确定选这个宿舍？选定后将无法更改。</p>
-    </confirm>
     <t-footer></t-footer>
   </div>
 </template>
 
 <script>
-import { XHeader, XButton, Confirm } from 'vux/src/components/'
+import { XHeader, XButton } from 'vux/src/components/'
 import TNav from './components/TNav'
 import Crumb from './components/Crumb'
 import store from './store'
 import TFooter from './components/TFooter'
 export default {
   components: {
-    XHeader, TNav, Crumb, XButton, Confirm, TFooter
+    XHeader, TNav, Crumb, XButton, TFooter
   },
   data () {
     return {
-      ensureSub: false,
       selectedIndex: null,
       // 提交按钮
       submitBtn: {
@@ -98,17 +94,17 @@ export default {
     processButton () {
       this.submitBtn.title = '选择床位中'
       this.submitBtn.disabled = true
-      this.ensureSub = true
-    },
-    onCancel () {
-      this.submitBtn.title = '确定床位 '
-      this.submitBtn.disabled = false
-    },
-    onConfirm () {
-      store.selBed(this.selDromBedInfo.currDormId, this.selectedIndex + 1, this).then(res => {
-        // 选择宿舍成功跳转到最终页面
-        this.$route.router.go('final')
-      })
+      this.$root.showConfirm('你真的真的确定选这个宿舍？选定后将无法更改。', () => {
+        store.selBed(this.selDromBedInfo.currDormId, this.selectedIndex + 1, this).then(res => {
+          // onConfirm
+          // 选择宿舍成功跳转到最终页面
+          this.$route.router.go('final')
+        })
+      }, () => {
+        // onCancel
+        this.submitBtn.title = '确定床位 '
+        this.submitBtn.disabled = false
+      }, '我已下定决心!', '再想想')
     },
     getPositionTitle (posNum) {
       if (posNum === 1 || posNum === 3) {

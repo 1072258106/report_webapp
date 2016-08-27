@@ -26,17 +26,6 @@ export default {
   components: {
     TFooter
   },
-  init () {
-    store.getMe(this, true).then(res => {
-      if (res.student.is_report === 1 && res.student.whether_has_dorm === 1) {
-        // 直接跳转到最终页面
-        this.$route.router.go('final')
-      } else if (res.student.is_report === 1) {
-        // 跳转到登记成功页面
-        this.$route.router.go('reportok')
-      }
-    })
-  },
   data () {
     return {
       // 是否显示logo
@@ -53,6 +42,15 @@ export default {
     }
   },
   ready () {
+    /* store.getMe(this, true).then(res => {
+      if (res.student.is_report === 1 && res.student.whether_has_dorm === 1) {
+        // 直接跳转到最终页面
+        this.$route.router.go('final')
+      } else if (res.student.is_report === 1) {
+        // 跳转到登记成功页面
+        this.$route.router.go('reportok')
+      }
+    }) */
     let studentIdInput = this.$el.querySelector('#student_name')
     studentIdInput.onfocus = () => {
       this.isSel = false

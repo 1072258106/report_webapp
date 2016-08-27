@@ -10,8 +10,8 @@
       <cell title="毕业中学" :value="userInfo.graduate_school"></cell>
     </group>
     <group title="输入身高体重用于订做校服(校服普遍偏大)">
-      <selector :value.sync="height" placeholder="请选择身高" title="身高" :options="heightList"></selector>
-      <x-input :value.sync="weight" title="体重" name="userweight" placeholder="请输入体重"></x-input>
+      <selector :value.sync="height" placeholder="请选择身高" title="身高(cm)" :options="heightList"></selector>
+      <x-input :value.sync="weight" title="体重(kg)" name="userweight" placeholder="请输入体重"></x-input>
     </group>
     <!-- remarks -->
     <group title="备注">
@@ -19,20 +19,16 @@
     </group>
     <div class="submit_btn"><x-button :text="submitBtn.title" :disabled="submitBtn.disabled" @click="processButton()" type="primary"></x-button></div>
     <t-footer></t-footer>
-    <confirm confirm-text="确认" cancel-text="取消" :show.sync="ensureSub" title="提示" @on-cancel="onCancel()" @on-confirm="onConfirm()">
-      <p style="text-align:center;">确定报道？</p>
-    </confirm>
-    <alert :show.sync="showAlert" title="提示">请填写身高、体重</alert>
   </div>
 </template>
 <script>
-  import { Group, Cell, XButton, Confirm, Selector, XInput, XTextarea, Alert } from 'vux/src/components'
+  import { Group, Cell, XButton, Selector, XInput, XTextarea } from 'vux/src/components'
   import TFooter from './components/TFooter'
   import TNav from './components/TNav'
   import store from './store'
   export default{
     components: {
-      TFooter, TNav, Group, Cell, XButton, Confirm, Selector, XInput, XTextarea, Alert
+      TFooter, TNav, Group, Cell, XButton, Selector, XInput, XTextarea
     },
     data () {
       return {
@@ -42,9 +38,6 @@
           title: '确定报道',
           disabled: false
         },
-        ensureSub: false,
-        tipText: '',
-        showAlert: false,
         // 身高、体重
         height: '',
         weight: '',
@@ -56,34 +49,33 @@
       // 点击提交按钮
       processButton () {
         if (this.height.length === 0 || this.weight.length === 0) {
-          this.showAlert = true
+          this.$root.showAlert('(╥╯^╰╥)身高、体重没有填写完整')
         } else {
           this.submitBtn.title = '提交中'
           this.submitBtn.disabled = true
-          this.ensureSub = true
+          this.$root.showConfirm('你输入的体重身高分别是' + this.weight + 'kg,' + this.height + 'cm 确认报道?', () => {
+            store.report(this.height, this.weight, this.remarks, this).then(res => {
+              this.$route.router.go({name: 'reportok'})
+            }, res => {
+              this.submitBtn.title = '确定报道'
+              this.submitBtn.disabled = false
+            })
+          }, () => {
+            this.submitBtn.title = '确定报道'
+            this.submitBtn.disabled = false
+          })
         }
-      },
-      onCancel () {
-        this.submitBtn.title = '确定报道'
-        this.submitBtn.disabled = false
-      },
-      onConfirm () {
-        store.report(this.height, this.weight, this.remarks, this).then(res => {
-          this.$route.router.go({name: 'reportok'})
-        })
       }
     },
     ready () {
+      // 设置样式
+      let weightInput = this.$root.$el.querySelector('.weui_input')
+      if (weightInput !== null) {
+        weightInput.style.paddingLeft = '3px'
+      }
       // 获取登陆者信息
       store.getMe(this).then(res => {
         this.userInfo = res.student
-        if (this.userInfo.is_report === 1 && this.userInfo.whether_has_dorm === 1) {
-          // 直接跳转到最终页面
-          this.$route.router.go('final')
-        } else if (this.userInfo.is_report === 1) {
-          // 跳转到登记成功页面
-          this.$route.router.go('reportok')
-        }
       }, res => {
         if (res.status === 401) {
           this.$route.router.replace({name: 'login'})

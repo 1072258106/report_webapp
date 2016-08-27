@@ -83,6 +83,7 @@ export default {
       this.dorms = res
     }, res => {
       if (res.status === 401) {
+        this.$root.showMessage(res.data.message)
         this.$route.router.replace({name: 'checkinfo'})
       }
     })

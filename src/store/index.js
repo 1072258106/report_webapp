@@ -76,8 +76,15 @@ store.report = (height, weight, remarks = '', instance) => {
   }, res => {
     instance.$root.loading.show = false
   }, res => {
+    let msg = ''
+    if (res.status === 422) {
+      for (let index in res.data.errors) {
+        msg += res.data.errors[index][0]
+      }
+      instance.$root.showMessage(msg)
+    }
     instance.$root.loading.show = false
-  })
+  }, true)
 }
 
 /**

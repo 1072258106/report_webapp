@@ -38,6 +38,7 @@
         })
       }, res => {
         if (res.status === 401) {
+          this.$root.showMessage(res.data.message)
           this.$route.router.replace({name: 'login'})
         }
       })

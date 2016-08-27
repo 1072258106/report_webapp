@@ -16,7 +16,7 @@
     </group>
     <!-- remarks -->
     <group title="备注">
-      <x-textarea :value.sync="remarks" :max="20" placeholder="请填写个人特殊情况(可不写)"></x-textarea>
+      <x-textarea :value.sync="remarks" :max="200" placeholder="请填写个人特殊情况(可不写)"></x-textarea>
     </group>
     <div class="submit_btn"><x-button :text="submitBtn.title" :disabled="submitBtn.disabled" @click="processButton()" type="primary"></x-button></div>
     <t-footer></t-footer>

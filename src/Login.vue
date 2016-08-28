@@ -66,13 +66,12 @@ export default {
       if (event.relatedTarget === null) {
         this.showLogo = true
         setTimeout(() => {
-          this.showFooter = true
+          this.svhowFooter = true
           this.isFocus = false
         }, 500)
       }
     }
     studentIdInput.onkeydown = (event) => {
-      console.log(event.keyCode)
       if (event.keyCode >= 48 && event.keyCode <= 57) {
         return false
       }

@@ -135,6 +135,7 @@ export default {
           // 清空身份证输入框
           let pwd = this.identityNums.join('')
           this.identityNums = []
+          this.$el.querySelector('#num_x').className = 'disabled'
           store.login(this.studentName, pwd, this).then(res => {
             // 登陆成功
             this.showIdentityInput = false

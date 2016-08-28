@@ -2,17 +2,18 @@
   <div class="page_content">
     <div class="logo" v-show="showLogo && !$root.showIdentityInput">
       <div class="logo_img"></div>
-      <p>计算机学院新生自助报道</p>
+      <p class="title">2016计算机学院新生自助报道</p>
       <p>(。・`ω´・) E8全体小伙伴欢迎新同学到来</p>
     </div>
     <div class="input_box">
+      <div class="placeholder" v-show="!showLogo">支持简拼搜索 如:小明(xm)</div>
       <div class="input_container">
         <input id="student_name" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
         <button @click="login" class="login_button">登陆</button>
       </div>
       <div class="tip">
         <ul>
-          <li @click="selStudentName(item)" v-for="item in matchList">{{item}}</li>
+          <li @click="selStudentName(item)" v-for="item in matchList"><button>{{item}}</button></li>
         </ul>
       </div>
     </div>
@@ -61,12 +62,14 @@ export default {
       this.showFooter = false
       this.isFocus = true
     }
-    studentIdInput.onblur = () => {
-      this.showLogo = true
-      setTimeout(() => {
-        this.showFooter = true
-        this.isFocus = false
-      }, 500)
+    studentIdInput.onblur = (event) => {
+      if (event.relatedTarget === null) {
+        this.showLogo = true
+        setTimeout(() => {
+          this.showFooter = true
+          this.isFocus = false
+        }, 500)
+      }
     }
   },
   watch: {
@@ -90,17 +93,19 @@ export default {
       this.matchList = []
     },
     login () {
+      if (this.studentName.length === 0) {
+        return false
+      }
       store.studentNameIsExit(this.studentName, this).then(res => {
         this.$root.studentName = this.studentName
         if (this.isFocus) {
           setTimeout(() => {
             this.$root.showIdentityInput = true
-            this.$root.IdentityNums = []
           }, 500)
         } else {
           this.$root.showIdentityInput = true
-          this.$root.IdentityNums = []
         }
+        this.$root.IdentityNums = []
         this.$el.querySelector('#student_name').blur()
       })
     },
@@ -134,11 +139,19 @@ export default {
       text-align: center;
       margin-top: .4rem;
       color: #aaa;
+      &.title{
+        font-size: .8rem;
+      }
     }
   }
   .input_box{
     padding: 1rem;
     margin-top: 1.5rem;
+    >.placeholder{
+      color: #666;
+      font-size: .6rem;
+      padding: .15rem .3rem;
+    }
     >.tip{
       border-top: 0;
       border-radius: 0 0 2px 2px;
@@ -157,6 +170,14 @@ export default {
         >li{
           padding-left: .5rem;
           transition: background-color .3s;
+          >button{
+            width: 100%;
+            display: block;
+            text-align: left;
+            font-size: .7rem;
+            line-height: 1.4rem;
+            color: #555;
+          }
           &:active{
             background-color: #eef3fe;
           }
@@ -192,8 +213,8 @@ export default {
         top: 2px;
         height: 2.02rem;
         width: 3.3rem;
-        background: #82c3fe;
-        color: #fff;
+        background: #fbfbfb;
+        color: #666;
         font-size: .75rem;
         white-space: nowrap;
         letter-spacing: -1px;

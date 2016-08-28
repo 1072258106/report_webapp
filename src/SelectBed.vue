@@ -94,7 +94,7 @@ export default {
     processButton () {
       this.submitBtn.title = '选择床位中'
       this.submitBtn.disabled = true
-      this.$root.showConfirm('你真的真的确定选这个宿舍？选定后将无法更改。', () => {
+      this.$root.showConfirm('你真的真的确定选这个宿舍？选定后可在' + this.$root.modifyInfoAddr + '修改。', () => {
         store.selBed(this.selDromBedInfo.currDormId, this.selectedIndex + 1, this).then(res => {
           // onConfirm
           // 选择宿舍成功跳转到最终页面

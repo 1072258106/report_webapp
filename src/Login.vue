@@ -8,7 +8,7 @@
     <div class="input_box">
       <div class="placeholder" v-show="!showLogo">支持简拼搜索 如:小明(xm)</div>
       <div class="input_container">
-        <input id="student_name" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
+        <input id="student_name" debounce="150" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
         <button @click="login" class="login_button">登陆</button>
       </div>
       <div class="tip">
@@ -71,6 +71,12 @@ export default {
         }, 500)
       }
     }
+    studentIdInput.onkeydown = (event) => {
+      console.log(event.keyCode)
+      if (event.keyCode >= 48 && event.keyCode <= 57) {
+        return false
+      }
+    }
   },
   watch: {
     'studentName' () {
@@ -109,7 +115,7 @@ export default {
         this.$el.querySelector('#student_name').blur()
       })
     },
-    // 替换匹配列表文字 add <em> tag
+    // 替换匹配列表文字
     replaceListTest (listItem) {
       if (this.matchList.search.length > 0) {
         return listItem.replace(this.matchList.search, '<span sytle="font-weight: normal;">' + this.matchList.search + '</span>')

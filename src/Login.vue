@@ -96,6 +96,7 @@ export default {
       this.isSel = true
       this.studentName = studentName
       this.matchList = []
+      this.login()
     },
     login () {
       if (this.studentName.length === 0) {

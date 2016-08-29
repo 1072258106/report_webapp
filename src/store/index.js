@@ -16,11 +16,17 @@ export default store
 store.myHttp = (instance, method, url, params, success, failed, noShowMsg = false) => {
   return new Promise(function (resolve, reject) {
     instance.$http[method](url, params).then(res => {
+      if (typeof res.data === 'string') {
+        res.data = JSON.parse(res.data)
+      }
       if (success !== undefined) {
         success(res)
       }
       resolve(res.data)
     }, res => {
+      if (typeof res.data === 'string') {
+        res.data = JSON.parse(res.data)
+      }
       if (failed !== undefined) {
         failed(res)
       }

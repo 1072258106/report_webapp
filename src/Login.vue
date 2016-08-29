@@ -1,5 +1,5 @@
 <template>
-  <div class="page_content">
+  <div @click="showLogo=true" class="page_content">
     <div class="logo" v-show="showLogo && !$root.showIdentityInput">
       <div class="logo_img"></div>
       <p class="title">2016计算机学院新生自助报道</p>
@@ -8,16 +8,16 @@
     <div class="input_box">
       <div class="placeholder" v-show="!showLogo">支持简拼搜索 如:小明(xm)</div>
       <div class="input_container">
-        <input id="student_name" debounce="150" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
-        <button @click="login" class="login_button">登陆</button>
+        <input @click.stop id="student_name" debounce="150" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
+        <button @click.stop="login" class="login_button">登录</button>
       </div>
       <div class="tip">
         <ul>
-          <li @click="selStudentName(item)" v-for="item in matchList"><button>{{item}}</button></li>
+          <li @click.stop="selStudentName(item)" v-for="item in matchList"><button>{{item}}</button></li>
         </ul>
       </div>
     </div>
-    <t-footer v-if="showFooter" :position="true"></t-footer>
+    <t-footer :position="true"></t-footer>
   </div>
 </template>
 
@@ -36,8 +36,6 @@ export default {
       studentName: '',
       // 输入框是否显示logo
       inputErr: false,
-      // 是否显示底部
-      showFooter: true,
       // 匹配列表
       matchList: [],
       isSel: false,
@@ -59,14 +57,12 @@ export default {
     studentIdInput.onfocus = () => {
       this.isSel = false
       this.showLogo = false
-      this.showFooter = false
       this.isFocus = true
     }
     studentIdInput.onblur = (event) => {
       if (event.relatedTarget === null) {
         this.showLogo = true
         setTimeout(() => {
-          this.svhowFooter = true
           this.isFocus = false
         }, 500)
       }
@@ -122,6 +118,9 @@ export default {
       } else {
         return listItem
       }
+    },
+    test () {
+      window.alert(123)
     }
   }
 }

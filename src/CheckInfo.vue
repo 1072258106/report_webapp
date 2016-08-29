@@ -12,7 +12,7 @@
     </group>
     <group title="输入身高体重用于订做校服(校服可能普遍偏大)">
       <selector :value.sync="height" placeholder="请选择身高" title="身高(cm)" :options="heightList"></selector>
-      <x-input :value.sync="weight" title="体重(kg)" name="userweight" placeholder="请输入体重"></x-input>
+      <x-input :value.sync="weight" type="number" title="体重(kg)" name="userweight" placeholder="请输入体重"></x-input>
     </group>
     <!-- remarks -->
     <group title="备注">

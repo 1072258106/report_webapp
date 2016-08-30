@@ -17,7 +17,10 @@ store.myHttp = (instance, method, url, params, success, failed, noShowMsg = fals
   return new Promise(function (resolve, reject) {
     instance.$http[method](url, params).then(res => {
       if (typeof res.data === 'string') {
-        res.data = JSON.parse(res.data)
+        try {
+          res.data = JSON.parse(res.data)
+        } catch (e) {
+        }
       }
       if (success !== undefined) {
         success(res)
@@ -25,7 +28,10 @@ store.myHttp = (instance, method, url, params, success, failed, noShowMsg = fals
       resolve(res.data)
     }, res => {
       if (typeof res.data === 'string') {
-        res.data = JSON.parse(res.data)
+        try {
+          res.data = JSON.parse(res.data)
+        } catch (e) {
+        }
       }
       if (failed !== undefined) {
         failed(res)

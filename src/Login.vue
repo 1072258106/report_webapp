@@ -8,7 +8,7 @@
     <div class="input_box">
       <div class="placeholder" v-show="!showLogo">支持简拼搜索 如:小明(xm)</div>
       <div class="input_container">
-        <input @click.stop id="student_name" debounce="150" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
+        <input @click.stop id="student_name" :class="{'error': inputErr}" type="text"  v-model="studentName"  class="student_input" placeholder="请输入你的姓名">
         <button @click.stop="login" class="login_button">登录</button>
       </div>
       <div class="tip">
@@ -118,9 +118,6 @@ export default {
       } else {
         return listItem
       }
-    },
-    test () {
-      window.alert(123)
     }
   }
 }

@@ -18,7 +18,7 @@ store.myHttp = (instance, method, url, params, success, failed, noShowMsg = fals
     instance.$http[method](url, params).then(res => {
       if (typeof res.data === 'string') {
         try {
-          res.data = JSON.parse(res.data)
+          res.data = res.json()
         } catch (e) {
         }
       }
@@ -29,7 +29,7 @@ store.myHttp = (instance, method, url, params, success, failed, noShowMsg = fals
     }, res => {
       if (typeof res.data === 'string') {
         try {
-          res.data = JSON.parse(res.data)
+          res.data = res.json()
         } catch (e) {
         }
       }
@@ -63,6 +63,7 @@ store.login = (studentName, password, instance) => {
     remember: 'true'
   }, res => {
     instance.$root.loading.show = false
+    instance.$root.option.menus.uname = res.data.student_name
   }, res => {
     instance.$root.loading.show = false
   }, true)
@@ -71,9 +72,7 @@ store.login = (studentName, password, instance) => {
  * 获取当前用户信息
  */
 store.getMe = (instance, noShowMsg) => {
-  return store.myHttp(instance, 'get', 'me', undefined, res => {
-    instance.$root.option.menus.uname = res.data.student.student_name
-  }, undefined, true)
+  return store.myHttp(instance, 'get', 'me', undefined, undefined, undefined, true)
 }
 
 /**

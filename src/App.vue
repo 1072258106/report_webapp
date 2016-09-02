@@ -49,7 +49,7 @@ export default {
   data () {
     return {
       // 修改信息的地点
-      modifyInfoAddr: 'xxx',
+      modifyInfoAddr: '服务站',
       showIdentityInput: false,
       message: {
         show: false,

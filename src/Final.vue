@@ -1,7 +1,7 @@
 <template>
   <div class="page_content">
-    <t-nav :show-back="false" title="完成报道"></t-nav>
-    <p class="info">恭喜你完成报道所有流程，下面是你的基本信息。</p>
+    <t-nav :show-back="false" title="完成报到"></t-nav>
+    <p class="info">已完成全部自助报到,接下来请到服务站完成其他流程。</p>
     <group>
       <cell title="学号" :value="userInfo.student_num"></cell>
       <cell title="姓名" :value="userInfo.student_name"></cell>

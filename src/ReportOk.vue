@@ -1,10 +1,10 @@
 <template>
   <div class="page_content">
-    <t-nav :show-back="false" title="报道成功"></t-nav>
+    <t-nav :show-back="false" title="报到成功"></t-nav>
     <div class="weui_msg">
       <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
       <div class="weui_text_area">
-        <h2 class="weui_msg_title">报道成功</h2>
+        <h2 class="weui_msg_title">报到成功</h2>
         <p class="weui_msg_desc">恭喜你，报道成功！ 接下来你可以选择宿舍</p>
       </div>
       <div class="weui_opr_area">

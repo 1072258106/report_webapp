@@ -12,10 +12,10 @@
         <template v-for="bed in selDromBedInfo.galleryFul">
           <template v-if="$index === 3">
             <div class="aisle">
-              <span class="balcony">阳台({{getPositionTitle(selDromBedInfo.position)}})</span>
+              <span class="balcony">阳台</span>
               <span class="top">过</span>
               <span class="bottom">道</span>
-              <span class="door">门({{getPositionTitle(selDromBedInfo.position+1)}})</span>
+              <span class="door">门</span>
             </div>
           </template>
           <template v-if="!isOccupied($index + 1)">
@@ -105,13 +105,6 @@ export default {
         this.submitBtn.title = '确定床位 '
         this.submitBtn.disabled = false
       }, '我已下定决心!', '再想想')
-    },
-    getPositionTitle (posNum) {
-      if (posNum === 1 || posNum === 3) {
-        return '南'
-      } else {
-        return '北'
-      }
     }
   },
   ready () {

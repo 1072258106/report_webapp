@@ -12,7 +12,7 @@
         <section>
           <div class="dorm">
             <ul>
-              <li @click="goSelBed(dorm.id, dorm.dorm_num, dorm.galleryful, dorm.selected_beds, dorm.position)" v-for="dorm in floor" :style="{'background-color': dormColors[$index].bgcolor}">
+              <li @click="goSelBed(dorm.id, dorm.dorm_num, dorm.galleryful, dorm.selected_beds)" v-for="dorm in floor" :style="{'background-color': dormColors[$index].bgcolor}">
                 <h4 :style="{ 'color': dormColors[$index].textcolor }">{{dorm.dorm_num}}</h4>
                 <span class="surplus">剩余:{{dorm.surplus_beds_num}}/{{dorm.galleryful}}</span>
               </li>
@@ -70,13 +70,12 @@ export default {
     })
   },
   methods: {
-    goSelBed (currDormId, currDorm, galleryful, selBeds, position) {
+    goSelBed (currDormId, currDorm, galleryful, selBeds) {
       let selBedInfo = {
         galleryFul: galleryful,
         selBeds: selBeds,
         currDorm: currDorm,
-        currDormId: currDormId,
-        position: position
+        currDormId: currDormId
       }
       window.localStorage.selDromBedInfo = JSON.stringify(selBedInfo)
       this.$route.router.go({name: 'selectbed'})

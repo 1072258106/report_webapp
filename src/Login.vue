@@ -2,7 +2,7 @@
   <div @click="showLogo=true" class="page_content">
     <div class="logo" v-show="showLogo && !$root.showIdentityInput">
       <div class="logo_img"></div>
-      <p class="title">2016计算机学院新生自助报道</p>
+      <p class="title">2016计算机学院新生自助报到</p>
       <p>(。・`ω´・) E8全体小伙伴欢迎新同学到来</p>
     </div>
     <div class="input_box">

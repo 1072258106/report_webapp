@@ -1,7 +1,7 @@
 <template>
   <div class="page_content">
     <t-nav :show-back="false" title="完成报到"></t-nav>
-    <p class="info">已完成全部自助报到,接下来请到服务站完成其他流程。</p>
+    <p class="info">已完成自助报到,接下来请到服务站完成其他流程。</p>
     <group>
       <cell title="学号" :value="userInfo.student_num"></cell>
       <cell title="姓名" :value="userInfo.student_name"></cell>
@@ -11,7 +11,7 @@
       <cell title="身份证" :value="userInfo.id_card"></cell>
       <cell title="报道时间" :value="userInfo.report_time"></cell>
     </group>
-    <group :title="'以下信息如果需要修改 可到' + $root.modifyInfoAddr + '处'">
+    <group :title="'以下信息如果需要修改 可到' + $root.modifyInfoAddr">
       <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' (' + userInfo.dorm_selection.bed_num + '号床)':''"></cell>
       <cell title="身高" :value="userInfo.student_info ? userInfo.student_info.height : ''"></cell>
       <cell title="体重" :value="userInfo.student_info ? userInfo.student_info.weight : ''"></cell>

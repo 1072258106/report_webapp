@@ -1,6 +1,6 @@
 <template>
   <div class="page_content">
-    <t-nav title="确认报到"></t-nav>
+    <t-nav title="确认信息"></t-nav>
     <group>
       <cell title="学号" :value="userInfo.student_num"></cell>
       <cell title="姓名" :value="userInfo.student_name"></cell>

@@ -33,8 +33,8 @@
     <p style="text-align:center;">{{confirm.msg}}</p>
   </confirm>
   <!--alert框-->
-  <alert :show.sync="alert.show" title="提示">{{alert.msg}}</alert>
-  <actionsheet :menus="option.menus" @on-click-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel></actionsheet>
+  <alert :show.sync="alert.show" :button-text="alert.buttonText" :title="alert.title">{{alert.msg}}</alert>
+  <actionsheet :menus="option.menus" @on-cli-tck-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel></actionsheet>
 </template>
 
 <script>
@@ -65,7 +65,9 @@ export default {
       },
       alert: {
         show: false,
-        msg: ''
+        msg: '',
+        title: '',
+        buttonText: ''
       },
       confirm: {
         show: false,
@@ -107,8 +109,10 @@ export default {
         this.identityError.show = false
       }, 3000)
     },
-    showAlert (msg) {
+    showAlert (msg, title = '提示', buttonText = 'ok') {
       this.alert.msg = msg
+      this.alert.title = title
+      this.alert.buttonText = buttonText
       this.alert.show = true
     },
     showConfirm (msg, onConfirm, onCancel, confirmText = '确认', cancelText = '取消') {

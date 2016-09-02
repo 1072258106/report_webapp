@@ -53,6 +53,10 @@ export default {
         this.$route.router.go('reportok')
       }
     }) */
+    if (window.localStorage.isReadTip === undefined) {
+      this.$root.showAlert('目前江湖险恶，骗子横行，学校或者其他教育部门不会要求学生将学费或其他费用转存到其他账户;学校不会向学生推销任何产品。如有疑问，请事先向学校咨询(校保卫处:0554-6862110)。安全警钟时刻长鸣。', '重要提醒', '朕已阅')
+      window.localStorage.isReadTip = '1'
+    }
     let studentIdInput = this.$el.querySelector('#student_name')
     studentIdInput.onfocus = () => {
       this.isSel = false

@@ -64,6 +64,7 @@ store.login = (studentName, password, instance) => {
   }, res => {
     instance.$root.loading.show = false
     instance.$root.option.menus.uname = res.data.student_name
+    window.localStorage.uname = res.data.student_name
   }, res => {
     instance.$root.loading.show = false
   }, true)

@@ -34,7 +34,7 @@
   </confirm>
   <!--alert框-->
   <alert :show.sync="alert.show" :button-text="alert.buttonText" :title="alert.title">{{alert.msg}}</alert>
-  <actionsheet :menus="option.menus" @on-cli-tck-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel></actionsheet>
+  <actionsheet :menus="option.menus" @on-click-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel></actionsheet>
 </template>
 
 <script>
@@ -167,6 +167,9 @@ export default {
     }
   },
   ready () {
+    // 将底部菜单和localStorage同步
+    this.option.menus.uname = window.localStorage.uname
+
     let lis = this.$el.querySelectorAll('.keyboard_container>ul>li:not(.back_space)')
     let self = this
     for (let liIndex in lis) {

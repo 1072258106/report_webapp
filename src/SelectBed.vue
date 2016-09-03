@@ -12,10 +12,10 @@
         <template v-for="bed in selDromBedInfo.galleryFul">
           <template v-if="$index === 3">
             <div class="aisle">
-              <span class="balcony">阳台</span>
+              <span class="balcony">门</span>
               <span class="top">过</span>
               <span class="bottom">道</span>
-              <span class="door">门</span>
+              <span class="door">阳台</span>
             </div>
           </template>
           <template v-if="!isOccupied($index + 1)">
@@ -191,13 +191,13 @@ export default {
               transform: translate(-50%,-50%);
               transition: color .3s;
             }
-            &:nth-of-type(odd){
+            &:nth-of-type(even){
               float:left;
               &:not(last-child){
                 border-bottom: 1px solid #f5f5f5;
               }
             }
-            &:nth-of-type(even){
+            &:nth-of-type(odd){
               float:right;
               &:not(last-child){
                 border-bottom: 1px solid #f5f5f5;

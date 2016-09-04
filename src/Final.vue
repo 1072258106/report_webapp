@@ -20,7 +20,7 @@
         <p>{{userInfo.student_info.remarks}}</p>
       </div>
     </group>
-    <group :title="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' 的室友':''">
+    <group v-if="userInfo.dorm_selection !=undefined && userInfo.dorm_selection.dorm.insert_dorm == 0" :title="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' 的室友':''">
       <p class="weui_media_desc">
         <span v-if="roomMates.length === 0">你是第一个选择 {{userInfo.dorm_selection ? userInfo.dorm_selection.dorm.dorm_num : ''}} 宿舍的。过一会在来看看吧。</span>
         <span v-for="mate in roomMates">{{mate.student_name}}</span>

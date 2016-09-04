@@ -58,6 +58,7 @@
             store.report(this.height, this.weight, this.remarks, this).then(res => {
               this.$route.router.go({name: 'reportok'})
             }, res => {
+              this.$root.showMessage(res.data.message)
               this.submitBtn.title = '确定报道'
               this.submitBtn.disabled = false
             })

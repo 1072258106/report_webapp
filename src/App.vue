@@ -20,13 +20,13 @@
         </flexbox>
       </div>
       <div class="keyboard_container">
-        <ul>
-          <li>1</li><li>2</li><li>3</li>
-          <li>4</li><li>5</li><li>6</li>
-          <li>7</li><li>8</li><li>9</li>
-          <li id="num_x" class="disabled">x</li><li>0</li><li class="back_space" @click="delIdentity()"><i class="iconfont icon-backspace"></i></li>
-        </ul>
-      </div>
+      <ul>
+        <li>1</li><li>2</li><li>3</li>
+        <li>4</li><li>5</li><li>6</li>
+        <li>7</li><li>8</li><li>9</li>
+        <li id="num_x" class="disabled">x</li><li>0</li><li class="back_space" @click="delIdentity()"><i class="iconfont icon-backspace"></i></li>
+      </ul>
+    </div>
     </div>
   </popup>
   <confirm :confirm-text="confirm.confirmText" :cancel-text="confirm.cancelText" :show.sync="confirm.show" title="提示" @on-cancel="confirm.onCancel()" @on-confirm="confirm.onConfirm()">
@@ -34,7 +34,7 @@
   </confirm>
   <!--alert框-->
   <alert :show.sync="alert.show" :button-text="alert.buttonText" :title="alert.title">{{alert.msg}}</alert>
-  <actionsheet :menus="option.menus" @on-click-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel></actionsheet>
+  <actionsheet :menus="option.menus" @on-click-menu-logout="logOut()" :show.sync="option.showMenus" show-cancel cancel-text="取消"></actionsheet>
 </template>
 
 <script>

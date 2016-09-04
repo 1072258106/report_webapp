@@ -11,8 +11,8 @@
       <cell title="身份证" :value="userInfo.id_card"></cell>
       <cell title="报道时间" :value="userInfo.report_time"></cell>
     </group>
-    <group :title="'以下信息如果需要修改 可到' + $root.modifyInfoAddr">
-      <cell title="你选择的宿舍" :value="userInfo.dorm_selection?userInfo.dorm_selection.dorm.dorm_num+ ' (' + userInfo.dorm_selection.bed_num + '号床)':''"></cell>
+    <group :title="'以下信息如果需要修改 请到' + $root.modifyInfoAddr">
+      <cell title="你选择的宿舍" :value="dorm"></cell>
       <cell title="身高" :value="userInfo.student_info ? userInfo.student_info.height : ''"></cell>
       <cell title="体重" :value="userInfo.student_info ? userInfo.student_info.weight : ''"></cell>
       <div class="remarks weui_cell" v-if="userInfo.student_info != undefined && userInfo.student_info.remarks != ''">
@@ -38,6 +38,19 @@
   export default{
     components: {
       TNav, Group, Cell, TFooter, XButton
+    },
+    computed: {
+      // 选择的宿舍
+      dorm () {
+        if (this.userInfo.dorm_selection) {
+          if (this.userInfo.dorm_selection.dorm.insert_dorm !== 0) {
+            return this.userInfo.dorm_selection.dorm.dorm_num
+          } else {
+            return this.userInfo.dorm_selection.dorm.dorm_num + ' (' + this.userInfo.dorm_selection.bed_num + '号床)'
+          }
+        }
+        return ''
+      }
     },
     data () {
       store.getMe(this).then(res => {

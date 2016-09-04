@@ -12,9 +12,9 @@
         <section>
           <div class="dorm">
             <ul>
-              <li @click="goSelBed(dorm.id, dorm.dorm_num, dorm.galleryful, dorm.selected_beds)" v-for="dorm in floor" :style="{'background-color': dormColors[$index].bgcolor}">
+              <li :class="{'disabled': dorm.insert_dorm ==1 && dorm.surplus_beds_num == 0}" @click="goSelBed(dorm.id, dorm.dorm_num, dorm.galleryful, dorm.surplus_beds_num, dorm.selected_beds, dorm.insert_dorm)" v-for="dorm in floor" :style="{'background-color': dormColors[$index].bgcolor}">
                 <h4 :style="{ 'color': dormColors[$index].textcolor }">{{dorm.dorm_num}}</h4>
-                <span class="surplus">剩余:{{dorm.surplus_beds_num}}/{{dorm.galleryful}}</span>
+                <span class="surplus">剩余:{{dorm.surplus_beds_num}}/{{dorm.pivot.allow_stay_num}}</span>
               </li>
             </ul>
           </div>
@@ -39,6 +39,7 @@ export default {
   },
   data () {
     return {
+      colorIndex: 0,
       dormColors: [
         {bgcolor: '#FBF2A5', textcolor: '#FA8612'},
         {bgcolor: '#CEDEF8', textcolor: '#4F72E6'},
@@ -70,12 +71,24 @@ export default {
     })
   },
   methods: {
-    goSelBed (currDormId, currDorm, galleryful, selBeds) {
+    goSelBed (currDormId, currDorm, galleryful, surplusBedsNum, selBeds, insertDorm) {
+      if (insertDorm !== 0) { // 是插宿
+        if (surplusBedsNum === 0) { // 剩余0个床位
+          return
+        }
+        this.$root.showConfirm('该宿舍是插宿舍，确定选择？', () => {
+          store.selBed(currDormId, 0, this).then(res => {
+            // 选择宿舍成功跳转到最终页面
+            this.$route.router.go('final')
+          })
+        }, () => {})
+        return
+      }
       let selBedInfo = {
-        galleryFul: galleryful,
-        selBeds: selBeds,
-        currDorm: currDorm,
-        currDormId: currDormId
+        galleryful: galleryful,
+        selected_beds: selBeds,
+        dorm_num: currDorm,
+        id: currDormId
       }
       window.localStorage.selDromBedInfo = JSON.stringify(selBedInfo)
       this.$route.router.go({name: 'selectbed'})
@@ -108,6 +121,15 @@ export default {
               float: left;
               height: 5rem;
               position: relative;
+              &.disabled{
+                background-color: #ddd!important;
+                >h4{
+                  color: #BFBFBF!important;
+                }
+                >span{
+                  color: #999!important;
+                }
+              }
               &:nth-child(even){
                 float: right;
               }

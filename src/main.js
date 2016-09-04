@@ -29,8 +29,8 @@ Vue.config.debug = false
 Vue.use(Router)
 // 使用vue-resource
 Vue.use(Resource)
-// Vue.http.options.root = 'http://api.report.dev'
-Vue.http.options.root = 'http://api.bd.e8net.cn'
+Vue.http.options.root = 'http://api.report.dev'
+// Vue.http.options.root = 'http://api.bd.e8net.cn'
 
 // 通过http拦截器设置credentials = true开启cookie跨域
 Vue.http.interceptors.push((request, next) => {

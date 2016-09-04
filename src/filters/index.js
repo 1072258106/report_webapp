@@ -5,6 +5,9 @@
  * @returns {String} 过滤够的字符串
  */
 export function cutString (string, retainNum) {
+  if (typeof string !== 'string') {
+    return ''
+  }
   if (string.length > retainNum) {
     return string.substr(0, 4) + '...'
   }

@@ -114,7 +114,7 @@ store.getDorms = (instance) => {
 /**
  * 选择宿舍床位
  * @param dormId 宿舍id
- * @param bedId 床位id
+ * @param bedId 床位id 如果是选择插宿舍则bedId传0
  */
 store.selBed = (dormId, bedId, instance) => {
   instance.$root.showLoading('请稍候')
@@ -172,4 +172,11 @@ store.logOut = (instance) => {
  */
 store.searchStudents = (instance, keyWord) => {
   return store.myHttp(instance, 'get', 'search_students/' + keyWord)
+}
+
+/**
+* 获取宿舍床位信息
+*/
+store.getDormBeds = (dormId, instance) => {
+  return store.myHttp(instance, 'get', 'dorm_beds_detail/' + dormId)
 }

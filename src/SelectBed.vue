@@ -4,12 +4,12 @@
     <crumb :nav-list="navList"></crumb>
     <div class="selectdorm_body">
       <header>
-        {{ selDromBedInfo.currDorm }}
+        {{ selDromBedInfo.dorm_num }}
       </header>
       <section>
         <div class="beds">
          <ul>
-        <template v-for="bed in selDromBedInfo.galleryFul">
+        <template v-for="bed in selDromBedInfo.galleryful">
           <template v-if="$index === 3">
             <div class="aisle">
               <span class="balcony">门</span>
@@ -82,7 +82,7 @@ export default {
      */
     isOccupied (bedId) {
       let bed = false
-      this.selDromBedInfo.selBeds.forEach(item => {
+      this.selDromBedInfo.selected_beds.forEach(item => {
         if (item.bed_num === bedId) {
           bed = item
           return false
@@ -95,10 +95,11 @@ export default {
       this.submitBtn.title = '选择床位中'
       this.submitBtn.disabled = true
       this.$root.showConfirm('你真的真的确定选这个宿舍？选定后可在' + this.$root.modifyInfoAddr + '修改。', () => {
-        store.selBed(this.selDromBedInfo.currDormId, this.selectedIndex + 1, this).then(res => {
+        store.selBed(this.selDromBedInfo.id, this.selectedIndex + 1, this).then(res => {
           // onConfirm
           // 选择宿舍成功跳转到最终页面
           this.$route.router.go('final')
+        }, res => {
         })
       }, () => {
         // onCancel
@@ -107,12 +108,19 @@ export default {
       }, '我已下定决心!', '再想想')
     }
   },
-  ready () {
-    // 获取当前选择的宿舍信息
-    this.selDromBedInfo = JSON.parse(window.localStorage.selDromBedInfo)
-    this.navList.push({
-      title: this.selDromBedInfo.currDorm
-    })
+  route: {
+    data (transition) {
+      // 获取当前选择的宿舍信息
+      this.selDromBedInfo = JSON.parse(window.localStorage.selDromBedInfo)
+      this.navList.push({
+        title: this.selDromBedInfo.dorm_num
+      })
+      if (transition.from.name !== 'selectdorm') {
+        store.getDormBeds(this.selDromBedInfo.id, this).then(res => {
+          this.selDromBedInfo = res
+        })
+      }
+    }
   }
 }
 </script>

@@ -13,8 +13,8 @@
     </group>
     <group :title="'以下信息如果需要修改 请到' + $root.modifyInfoAddr">
       <cell title="你选择的宿舍" :value="dorm"></cell>
-      <cell title="身高" :value="userInfo.student_info ? userInfo.student_info.height : ''"></cell>
-      <cell title="体重" :value="userInfo.student_info ? userInfo.student_info.weight : ''"></cell>
+      <cell title="身高(cm)" :value="userInfo.student_info ? userInfo.student_info.height : ''"></cell>
+      <cell title="体重(kg)" :value="userInfo.student_info ? userInfo.student_info.weight : ''"></cell>
       <div class="remarks weui_cell" v-if="userInfo.student_info != undefined && userInfo.student_info.remarks != ''">
         <header>备注</header>
         <p>{{userInfo.student_info.remarks}}</p>

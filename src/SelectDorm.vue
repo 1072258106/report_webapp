@@ -81,7 +81,7 @@ export default {
             // 选择宿舍成功跳转到最终页面
             this.$route.router.go('final')
           })
-        }, () => {})
+        }, () => {}, '就这间', '再想想')
         return
       }
       let selBedInfo = {

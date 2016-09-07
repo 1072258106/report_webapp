@@ -12,8 +12,8 @@
         <section>
           <div class="dorm">
             <ul>
-              <li :class="{'disabled': dorm.insert_dorm ==1 && dorm.surplus_beds_num == 0}" @click="goSelBed(dorm.id, dorm.dorm_num, dorm.galleryful, dorm.surplus_beds_num, dorm.selected_beds, dorm.insert_dorm)" v-for="dorm in floor" :style="{'background-color': dormColors[$index].bgcolor}">
-                <h4 :style="{ 'color': dormColors[$index].textcolor }">{{dorm.dorm_num}}</h4>
+              <li :class="{'disabled': dorm.insert_dorm ==1 && dorm.surplus_beds_num == 0}" @click="goSelBed(dorm.id, dorm.dorm_num, dorm.galleryful, dorm.surplus_beds_num, dorm.selected_beds, dorm.insert_dorm)" v-for="dorm in floor" :style="{'background-color': dormColors[getCurrColorIndex()].bgcolor}">
+                <h4 :style="{ 'color': dormColors[getCurrColorIndex('text')].textcolor }">{{dorm.dorm_num}}</h4>
                 <span class="surplus">剩余:{{dorm.surplus_beds_num}}/{{dorm.pivot.allow_stay_num}}</span>
               </li>
             </ul>
@@ -39,7 +39,6 @@ export default {
   },
   data () {
     return {
-      colorIndex: 0,
       dormColors: [
         {bgcolor: '#FBF2A5', textcolor: '#FA8612'},
         {bgcolor: '#CEDEF8', textcolor: '#4F72E6'},
@@ -61,6 +60,7 @@ export default {
     }
   },
   ready () {
+    window.index = 0
     store.getDorms(this).then(res => {
       this.dorms = res
     }, res => {
@@ -92,6 +92,17 @@ export default {
       }
       window.localStorage.selDromBedInfo = JSON.stringify(selBedInfo)
       this.$route.router.go({name: 'selectbed'})
+    },
+    getCurrColorIndex (type) {
+      if (type === 'text') {
+        window.index ++
+        window.index %= 8
+        if (window.index === 0) {
+          return this.dormColors.length - 1
+        }
+        return window.index - 1
+      }
+      return window.index
     }
   }
 }
